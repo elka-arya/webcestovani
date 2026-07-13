@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title>wayward girl — cestovatelský deník</title>
+  <meta name="description" content="Cestovatelský deník o přírodě, jezerech, moři a výletech se psem Aryou.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="nav-bar" id="header">
+    <div class="nav-bar__pill">
+      <a href="index.html" class="logo">
+        <span class="logo__leaf" aria-hidden="true">🍃</span>
+        <span data-i18n="siteName">wayward girl</span>
+      </a>
+      <nav>
+        <ul class="nav">
+          <li><a href="index.html#clanky" data-i18n="navArticles">Články</a></li>
+          <li><a href="index.html#mapa"   data-i18n="navMap">Mapa</a></li>
+          <li><a href="index.html#filtry" data-i18n="navLocations">Lokality</a></li>
+          <li><a href="index.html#o-mne"  data-i18n="navAbout">O mně</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="cs">CS</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section article-page" id="article-content">
+    <!-- filled by article.js -->
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand" aria-hidden="true">wayward girl</div>
+    <div class="footer__body">
+      <span class="footer__leaf" aria-hidden="true">🍃</span>
+      <p class="footer__meta" data-i18n="footer">wayward girl · cestovatelský deník · 2026</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/article.js"></script>
+  <script src="js/animate.js"></script>
+</body>
+</html>

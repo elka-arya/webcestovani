@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title>wayward girl — cestovatelský deník</title>
+  <meta name="description" content="Cestovatelský deník o přírodě, jezerech, moři a výletech se psem Aryou.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─────────────────────────────────────── -->
+  <header class="nav-bar" id="header">
+    <div class="nav-bar__pill">
+      <a href="index.html" class="logo">
+        <span class="logo__leaf" aria-hidden="true">🍃</span>
+        <span data-i18n="siteName">wayward girl</span>
+      </a>
+      <nav>
+        <ul class="nav">
+          <li><a href="#clanky" data-i18n="navArticles">Články</a></li>
+          <li><a href="#mapa"   data-i18n="navMap">Mapa</a></li>
+          <li><a href="#filtry" data-i18n="navLocations">Lokality</a></li>
+          <li><a href="#o-mne"  data-i18n="navAbout">O mně</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="cs">CS</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── HERO — leaf image lives only here ─────────────── -->
+  <section class="hero">
+    <div class="hero__bg" id="heroBg" aria-hidden="true"></div>
+    <div class="hero__gradient" aria-hidden="true"></div>
+
+    <div class="hero__meta" aria-hidden="true">
+      <span class="hero__meta-year">2026</span>
+      <span class="hero__meta-lang">CZ · EN · ES</span>
+    </div>
+
+    <div class="hero__body">
+      <div class="hero__kicker" aria-hidden="true">
+        <span class="hero__kicker-rule"></span>
+        <span data-i18n="heroEyebrow">Cestovatelský deník</span>
+        <span class="hero__kicker-rule"></span>
+      </div>
+
+      <h1 data-i18n="heroTitle" data-i18n-html="true">
+        Příroda, voda<br>a <em>svoboda</em><br>na cestách
+      </h1>
+
+      <p class="hero__sub" data-i18n="heroText">
+        Zapisuji zážitky z míst, kde dýchá les, vlní se voda, pulzuje město… a svobodně běhá Arya…
+      </p>
+
+      <a href="#clanky" class="hero__cta" data-i18n="heroCta">
+        Číst články <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="hero__foot" aria-hidden="true">
+      <span class="hero__paw">🐾</span>
+      <div class="hero__scroll-track">
+        <div class="hero__scroll-bar"></div>
+        <span class="hero__scroll-label">scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FILTERS — editorial sticky split ──────────────── -->
+  <section class="s-filters" id="filtry">
+    <div class="s-filters__inner">
+      <div class="s-filters__lead reveal">
+        <span class="kicker" data-i18n="navLocations">Lokality</span>
+        <h2 data-i18n="filtersTitle">Kam mě<br>vítr zavál</h2>
+        <p data-i18n="filtersSubtitle">Vyber kontinent, stát nebo hashtag — mapa i články se přizpůsobí.</p>
+      </div>
+
+      <div class="s-filters__panel reveal">
+        <div class="filters">
+          <div class="filters__group">
+            <span class="filters__label" data-i18n="labelContinent">Kontinent</span>
+            <div class="filters__chips" id="continent-filters"></div>
+          </div>
+          <div class="filters__group">
+            <span class="filters__label" data-i18n="labelCountry">Stát</span>
+            <div class="filters__chips" id="country-filters"></div>
+          </div>
+          <div class="filters__group">
+            <span class="filters__label" data-i18n="labelHashtags">Hashtagy</span>
+            <div class="filters__chips">
+              <button class="chip chip--dog" id="dog-filter" data-i18n="filterDog">Výlety se psem</button>
+            </div>
+          </div>
+          <button class="filters__clear" id="clear-filters" data-i18n="clearFilters">Zrušit filtry</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MAP — full bleed, glass overlay card ──────────── -->
+  <section class="s-map" id="mapa">
+    <div class="map-frame">
+      <div class="map-card reveal">
+        <span class="kicker" data-i18n="navMap">Mapa</span>
+        <h2 data-i18n="mapTitle">Interaktivní mapa</h2>
+        <p data-i18n="mapSubtitle">Klikni na špendlík — otevře se náhled článku. Zelené značky = cesty se psem.</p>
+        <div class="map-legend">
+          <span class="map-legend__item">
+            <span class="map-legend__dot map-legend__dot--dog"></span>
+            <span data-i18n="legendDog">Výlet se psem</span>
+          </span>
+          <span class="map-legend__item">
+            <span class="map-legend__dot map-legend__dot--solo"></span>
+            <span data-i18n="legendSolo">Bez psa / plánované</span>
+          </span>
+        </div>
+      </div>
+      <div class="map-viewport">
+        <div id="map"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ATMOSPHERIC BREAK — full-bleed editorial moment ─ -->
+  <div class="atm-break" aria-hidden="true">
+    <img
+      src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=75&auto=format"
+      alt=""
+      loading="lazy"
+    >
+    <div class="atm-break__veil"></div>
+    <p class="atm-break__quote">
+      „Každé místo má svůj vlastní rytmus."
+    </p>
+  </div>
+
+  <!-- ─── ARTICLES — warm beige, broken editorial grid ─── -->
+  <section class="s-articles" id="clanky">
+    <div class="s-articles__inner">
+      <header class="s-articles__head reveal">
+        <span class="kicker" data-i18n="navArticles">Příběhy</span>
+        <h2 data-i18n="articlesTitle">Články</h2>
+        <p data-i18n="articlesSubtitle">Každý příběh nese hashtagy: kontinent · stát · město · #se-psem</p>
+      </header>
+      <div class="articles-grid" id="articles-grid"></div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT — dark forest, full-width editorial ─────── -->
+  <section class="s-about" id="o-mne">
+    <div class="s-about__inner">
+      <div class="s-about__text reveal">
+        <span class="kicker kicker--light">O mně</span>
+        <h2 data-i18n="aboutTitle">O mně</h2>
+        <p data-i18n="aboutText">
+          Je mi 33, miluju přírodu, jezera, moře a cestování. Moje společnínice je Arya —
+          černá fena německého ovčáka. Spolu hledáme stezky, kde je klid, zeleň a prostor na procházku.
+        </p>
+        <div class="s-about__rule" aria-hidden="true"></div>
+        <span class="s-about__caption">Arya · Německý ovčák · Cestovní společnice</span>
+      </div>
+
+      <div class="s-about__visual reveal">
+        <div class="s-about__portrait" aria-hidden="true">
+          <span class="s-about__emoji">🐕‍🦺</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ghost numeral — decorative background texture -->
+    <span class="s-about__ghost" aria-hidden="true">33</span>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__brand" aria-hidden="true">wayward girl</div>
+    <div class="footer__body">
+      <span class="footer__leaf" aria-hidden="true">🍃</span>
+      <p class="footer__meta" data-i18n="footer">wayward girl · cestovatelský deník · 2026</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/animate.js"></script>
+</body>
+</html>
