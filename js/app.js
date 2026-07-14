@@ -25,18 +25,37 @@ function initMap() {
 }
 
 function createIcon(dogFriendly) {
-  const color = dogFriendly ? '#5a7a5e' : '#6b9aa8';
+  /* Design-system colours */
+  const fill   = dogFriendly ? '#3F6B45' : '#7FA36A';   /* --leaf / --accent */
+  const ring   = dogFriendly ? 'rgba(63,107,69,.22)' : 'rgba(127,163,106,.18)';
+
+  /* Inner indicator: paw path for dog, solid dot for solo */
+  const inner = dogFriendly
+    /* Simplified paw — main pad + three small knuckle circles */
+    ? `<circle cx="13" cy="13.5" r="3.8" fill="white" opacity="0.96"/>
+       <circle cx="9.2" cy="9.8"  r="1.6" fill="white" opacity="0.80"/>
+       <circle cx="13"  cy="8.4"  r="1.6" fill="white" opacity="0.80"/>
+       <circle cx="16.8" cy="9.8" r="1.6" fill="white" opacity="0.80"/>`
+    : `<circle cx="13" cy="13" r="3.2" fill="white" opacity="0.96"/>
+       <circle cx="13" cy="13" r="1.4" fill="${fill}" opacity="0.70"/>`;
+
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
-      <path d="M14 0C6.3 0 0 6.3 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.3 21.7 0 14 0z" fill="${color}" opacity="0.9"/>
-      <circle cx="14" cy="13" r="6" fill="white" opacity="0.95"/>
-      ${dogFriendly ? '<text x="14" y="17" text-anchor="middle" font-size="10">🐾</text>' : '<circle cx="14" cy="13" r="2.5" fill="' + color + '"/>'}
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="34" viewBox="0 0 26 34">
+      <filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="${fill}" flood-opacity="0.28"/>
+      </filter>
+      <path d="M13 0C5.8 0 0 5.8 0 13c0 9.8 13 21 13 21s13-11.2 13-21C26 5.8 20.2 0 13 0z"
+            fill="${fill}" opacity="0.92" filter="url(#ds)"/>
+      <!-- outer ring for depth -->
+      <circle cx="13" cy="12.5" r="7.5" fill="${ring}"/>
+      ${inner}
     </svg>`;
+
   return L.divIcon({
     html: svg,
     className: 'custom-marker',
-    iconSize: [28, 36],
-    iconAnchor: [14, 36],
+    iconSize: [26, 34],
+    iconAnchor: [13, 34],
     popupAnchor: [0, -36],
   });
 }
@@ -61,8 +80,8 @@ function renderMarkers(articles) {
 
     marker.bindPopup(`
       <div class="popup-title">${title}</div>
-      <p style="font-size:0.82rem;color:#6b7a6e;margin:0 0 0.5rem">${excerpt.slice(0, 90)}…</p>
-      <a href="${articleUrl(article.id, lang)}" style="font-size:0.82rem;color:#4a7c8c">${t('readMore')}</a>
+      <p class="popup-excerpt">${excerpt.slice(0, 90)}…</p>
+      <a href="${articleUrl(article.id, lang)}" class="popup-link">${t('readMore')} →</a>
       <div class="popup-tags">${tagHtml}</div>
     `);
 
