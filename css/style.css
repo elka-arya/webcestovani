@@ -211,36 +211,35 @@ h1, h2, h3 {
   background: #2E5233;
 }
 
-/* Leaves — sharp, vibrant, slightly zoomed out.
-   Morning brightness. Rich greens. No heavy darkening.     */
+/* Hero photograph — Lenka & Arya, alpine lake, full composition */
 .hero__bg {
   position: absolute;
-  inset: -8%;
-  background-image: url("../assets/leaf-wall.png");
+  inset: -6%;
+  background-image: url("../assets/hero-lenka-arya.jpg");
   background-size: cover;
-  background-position: center 28%;
-  filter: brightness(0.96) saturate(1.22) contrast(1.03);
+  background-position: center 70%;
+  filter: brightness(0.95) saturate(1.08) contrast(1.02);
   will-change: transform;
 }
 
-/* Gradient: only what legibility requires.
-   Three layers — morning light · natural depth · soft scrim.
-   Bright and fresh — like forest at sunrise, not dusk.     */
+/* Gradient: legibility over a bright alpine photo.
+   Right column darkened for text; subjects on left stay clear. */
 .hero__gradient {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    /* Soft morning sunlight — warm gold kiss on upper canopy */
-    radial-gradient(ellipse 72% 52% at 68% 10%, rgba(255,252,220,.13) 0%, transparent 58%),
-    /* Gentle left depth — you are inside the forest */
-    linear-gradient(to right, rgba(15,42,22,.10) 0%, transparent 38%),
-    /* Bottom scrim — just enough for text, fades quickly */
+    /* Darken right column behind heading */
+    linear-gradient(to left,
+      rgba(8,26,14,.62) 0%,
+      rgba(8,26,14,.28) 42%,
+      transparent 68%),
+    /* Bottom scrim — grounds the text area */
     linear-gradient(to top,
-      rgba(15,42,22,.32) 0%,
-      rgba(15,42,22,.10) 26%,
-      rgba(15,42,22,.02) 48%,
-      transparent 66%);
+      rgba(8,26,14,.48) 0%,
+      rgba(8,26,14,.16) 28%,
+      rgba(8,26,14,.03) 52%,
+      transparent 70%);
 }
 
 /* Corner editorial metadata */
@@ -270,22 +269,26 @@ h1, h2, h3 {
   color: rgba(255,255,255,.34);
 }
 
-/* Main body — editorial positioning · generous negative space */
+/* Main body — right half of hero, subjects free on left */
 .hero__body {
-  position: relative;
+  position: absolute;
+  bottom: clamp(7rem, 14vh, 12rem);
+  left: 52%;
+  right: var(--gutter);
   z-index: 2;
-  align-self: end;
-  padding: 0 var(--gutter) clamp(9rem, 18vh, 14rem);
-  max-width: min(760px, 88vw);
+  text-align: left;
 }
 
-/* Eyebrow kicker — delicate, airy */
+/* Eyebrow kicker — fixed just below the nav bar */
 .hero__kicker {
+  position: absolute;
+  top: clamp(5rem, 9vh, 7rem);
+  left: var(--gutter);
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 3rem;
-  animation: fadeUp 1.1s var(--spring) .06s both;
+  animation: fadeIn 1.4s var(--spring) .3s both;
 }
 .hero__kicker-rule {
   display: block;
@@ -303,9 +306,9 @@ h1, h2, h3 {
   white-space: nowrap;
 }
 
-/* Headline — true editorial magazine scale */
+/* Headline — scaled to fit right column */
 .hero h1 {
-  font-size: clamp(4rem, 10.5vw, 8rem);
+  font-size: clamp(2.6rem, 5.5vw, 5.2rem);
   font-weight: 300;
   color: rgba(255,255,255,.97);
   line-height: 0.96;
@@ -330,32 +333,31 @@ h1, h2, h3 {
   animation: fadeUp 1.1s var(--spring) .32s both;
 }
 
-/* CTA — glass pill · invitation not instruction */
+/* CTA — clean underline link · invitation not instruction */
 .hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  gap: 0.65rem;
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: rgba(255,255,255,.92);
-  padding: 0.75rem 1.6rem 0.75rem 1.4rem;
-  border: 1px solid rgba(168,198,134,.36);
-  border-radius: var(--r-pill);
-  background: rgba(15,42,22,.28);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  padding-bottom: 6px;
   animation: fadeUp 1.1s var(--spring) .46s both;
-  transition: color var(--dur-s), gap var(--dur-m) var(--spring),
-              background var(--dur-m), border-color var(--dur-m);
+  transition: color var(--dur-s), gap var(--dur-m) var(--spring);
 }
-.hero__cta:hover {
-  color: var(--white);
-  gap: 1.05rem;
-  background: rgba(63,107,69,.36);
-  border-color: rgba(168,198,134,.60);
+.hero__cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(168,198,134,.55);
+  transition: background var(--dur-m), width var(--dur-m) var(--spring);
 }
+.hero__cta:hover           { color: var(--white); gap: 1.0rem; }
+.hero__cta:hover::after    { background: rgba(168,198,134,.95); }
 
 /* Scroll indicator — breathing rhythm */
 .hero__foot {
@@ -1182,14 +1184,15 @@ h1, h2, h3 {
   margin: 0 auto;
   padding: 0 var(--gutter);
   display: grid;
-  grid-template-columns: clamp(280px, 36%, 420px) 1fr;
+  grid-template-columns: 1fr clamp(280px, 36%, 420px);
   gap: clamp(5rem, 10vw, 10rem);
   align-items: center;
   position: relative;
   z-index: 1;
 }
-.s-about__visual { grid-column: 1; grid-row: 1; }
-.s-about__text   { grid-column: 2; grid-row: 1; }
+/* Text LEFT, photo RIGHT — matches the screenshot layout */
+.s-about__visual { grid-column: 2; grid-row: 1; }
+.s-about__text   { grid-column: 1; grid-row: 1; }
 
 /* ── Portrait photograph ── */
 .s-about__frame {
@@ -1633,10 +1636,10 @@ h1, h2, h3 {
   }
   .article-card:nth-child(8) .article-card__title { font-size: clamp(1.4rem, 3vw, 2rem); }
 
-  /* About — reset explicit column reorder, stack in HTML order (text → portrait) */
+  /* About — single column at tablet, text first then photo */
   .s-about__inner  { grid-template-columns: 1fr; gap: 3rem; }
-  .s-about__visual { grid-column: 1; grid-row: 1; }
-  .s-about__text   { grid-column: 1; grid-row: 2; }
+  .s-about__visual { grid-column: 1; grid-row: 2; }
+  .s-about__text   { grid-column: 1; grid-row: 1; }
   .s-about__photo  { aspect-ratio: 3 / 2; }
   .s-about__ghost  { font-size: clamp(7rem, 22vw, 12rem); }
 }
@@ -1653,7 +1656,7 @@ h1, h2, h3 {
   .hero h1        { font-size: clamp(2.8rem, 11.5vw, 4rem); }
   .hero__body     { max-width: 100%; padding-bottom: clamp(7rem, 15vh, 10rem); }
   .hero__meta     { display: none; }
-  .hero__cta      { font-size: 0.65rem; padding: 0.65rem 1.2rem 0.65rem 1.1rem; }
+  .hero__cta      { font-size: 0.65rem; }
 
   .s-map__canvas  { aspect-ratio: 4 / 3; min-height: 280px; border-radius: 20px; }
 
