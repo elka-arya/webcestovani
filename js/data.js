@@ -58,7 +58,7 @@ const ARTICLES = [
   {
     id: 2,
     date: '2025-08-03',
-    image: 'https://images.unsplash.com/photo-1526481280695-3c469fd994a4?w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1499678329028-101435549a4e?w=1200&q=80',
     lat: 47.8095,
     lng: 13.0550,
     tags: ['evropa', 'rakousko', 'salzburg', 'se-psem'],
